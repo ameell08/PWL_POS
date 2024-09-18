@@ -36,8 +36,8 @@ class UserController extends Controller
         // ];
         // UserModel::where('username', 'custmer-1')->update($data); // Mengupdate data user
         
-        //JS4
-        //menambahkan data baru 
+        //Jobsheet 4
+        /*menambahkan data baru */
         // $data =[
         //     'level_id' => 2,
         //     'username' => 'manager_tiga',
@@ -50,28 +50,35 @@ class UserController extends Controller
         // $user = UserModel::all(); // Mengambil semua data dari tabel m_user
         // return view('user', ['data' => $user]);
 
-        //JS 4
-        //find
+        /*find*/
         // $user = UserModel::find(1); 
         // return view('user', ['data' => $user]);
 
-        //where
+        /*where*/
         // $user = UserModel::firstWhere('level_id', 1)->first(); 
         // return view('user', ['data' => $user]);
 
-        //firstWhere
+        /*firstWhere*/
         // $user = UserModel::firstWhere('level_id', 1); 
         // return view('user', ['data' => $user]);
 
-        //findOr
+        /*findOr*/
         // $user = UserModel::findOr(1,['username', 'nama'], function (){
         //     abort(404);
         // });
         // return view('user', ['data' => $user]);  
         
-        $user = UserModel::findOr(20,['username', 'nama'], function (){
-            abort(404);
-        });
-        return view('user', ['data' => $user]);   
+        // $user = UserModel::findOr(20,['username', 'nama'], function (){
+        //     abort(404);
+        // });
+        // return view('user', ['data' => $user]); 
+        
+        /*findOrFail*/
+        // $user = UserModel::findOrFail(1);
+        // return view('user',['data' => $user]);
+
+        /**firstOrFail */
+        $user = UserModel::where('username', 'manager')->firstOrFail();
+        return view('user',['data' => $user]);
     }
 }
