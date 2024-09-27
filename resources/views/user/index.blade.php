@@ -38,8 +38,7 @@
                         <th>ID</th>
                         <th>Username</th>
                         <th>Nama</th>
-                        <th>Level
-                            Pengguna</th>
+                        <th>Level Pengguna</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -61,7 +60,8 @@
                     "url": "{{ url('user/list') }}",
                     "dataType": "json",
                     "type": "POST",
-                    "data": function (d){
+                    "data": function (d)
+                    {
                         d.level_id = $('#level_id').val();
                     }
                 },
@@ -96,7 +96,9 @@
                     searchable: false
                 }]
             });
-            $('#level_id').on('change', function(){
+
+            $('#level_id').on('change', function()
+            {
                 dataUser.ajax.reload();
             });
         });
