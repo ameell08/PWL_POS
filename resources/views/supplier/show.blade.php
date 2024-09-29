@@ -20,6 +20,10 @@
 				<th>Nama Supplier</th>
 				<td>{{ $supplier->supplier_nama }}</td>
 			</tr>
+			<tr>
+				<th>Alamat Supplier</th>
+				<td>{{ $supplier->supplier_alamat }}</td>
+			</tr>
 		</table> @endempty <a href="{{ url('supplier') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
 	</div>
 </div> @endsection @push('css') @endpush @push('js') @endpush

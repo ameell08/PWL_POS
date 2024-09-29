@@ -20,6 +20,7 @@
 					<th>ID</th>
 					<th>Kode Supplier</th>
 					<th>Nama Supplier</th>
+					<th>Alamat Supplier</th>
 					<th>Aksi</th>
 				</tr>
 			</thead>
@@ -52,7 +53,13 @@
 				className: "",
 				orderable: true,
 				searchable: true
-			}, {
+			}, 
+			{
+				data: "supplier_alamat",
+				className: "",
+				orderable: true,
+				searchable: true
+			},{
 				data: "aksi",
 				className: "",
 				orderable: false,

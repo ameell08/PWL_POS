@@ -19,6 +19,13 @@ old('supplier_kode') }}" required> @error('supplier_kode') <small class="form-te
 old('supplier_nama') }}" required> @error('supplier_nama') <small class="form-text text-danger">{{ $message }}</small> @enderror
 				</div>
 			</div>
+				<div class="form-group row">
+					<label class="col-1 control-label col-form-label">Supplier Alamat</label>
+					<div class="col-11">
+						<input type="text" class="form-control" id="supplier_alamat" name="supplier_alamat" value="{{
+	old('supplier_alamat') }}" required> @error('supplier_alamat') <small class="form-text text-danger">{{ $message }}</small> @enderror
+					</div>
+			</div>
 			<div class="form-group row">
 				<label class="col-1 control-label col-form-label"></label>
 				<div class="col-11">
