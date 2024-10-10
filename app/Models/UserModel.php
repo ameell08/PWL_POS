@@ -18,11 +18,11 @@ class UserModel extends Authenticable
      * 
      * @var array
      */
-    protected $fillable = ['username', 'password', 'nama',  'level_id', 'create_at', 'update_at'];
+    protected $fillable = ['username', 'password', 'nama',  'level_id', 'created_at', 'updated_at'];
 
     protected $hidden = ['password'];
 
-    protected $casts = ['password' => 'hashed'];
+    protected $casts = ['password' => 'hashed']; //password akan di-hash secara otomatis
 
     // Relasi ke tabel level
     public function level():BelongsTo {

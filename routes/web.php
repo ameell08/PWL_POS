@@ -20,6 +20,7 @@ use Monolog\Level;
     Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 
     Route::middleware(['auth'])->group(function(){ //artinya smeua route di dalam grup ini harus login terlebih dahulu
+        Route::get('/', [UserController::class, 'index']); //halaman awal
         Route::group(['prefix'=> 'user'], function(){
             Route::get('/', [UserController::class, 'index']);                      //menampilkan halaman awal user
             Route::post('/list', [UserController::class, 'list']);                  //menampilkandata user dalam bentuk json untuk data tables
