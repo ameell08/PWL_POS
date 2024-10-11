@@ -20,7 +20,9 @@ use Monolog\Level;
     Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 
     Route::middleware(['auth'])->group(function(){ //artinya smeua route di dalam grup ini harus login terlebih dahulu
-        Route::get('/', [UserController::class, 'index']); //halaman awal
+        Route::get('/', [WelcomeController::class, 'index']); //halaman awal
+
+        // route user
         Route::group(['prefix'=> 'user'], function(){
             Route::get('/', [UserController::class, 'index']);                      //menampilkan halaman awal user
             Route::post('/list', [UserController::class, 'list']);                  //menampilkandata user dalam bentuk json untuk data tables
@@ -38,7 +40,7 @@ use Monolog\Level;
             Route::delete('/{id}', [UserController::class, 'destroy']);             // menghapus data user
         });
         
-        Route::group(['prefix'=> 'level'], function(){
+        Route::group(['prefix'=> 'level','middleware' => 'authorize :ADM'], function(){
             Route::get('/', [LevelController::class, 'index']);              //menampilkan halaman awal 
             Route::post('/list', [LevelController::class, 'list']);          //menampilkan data dalam bentuk json untuk data tables
             Route::get('/create', [LevelController::class, 'create']);       //menampilkan halaman form tambah 
