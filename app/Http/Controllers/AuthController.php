@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\UserModel;
+
 class AuthController extends Controller
 {
     public function login()
@@ -11,6 +13,7 @@ class AuthController extends Controller
         }
         return view('auth.login');
     }
+
     public function postlogin(Request $request)
     {
         if ($request->ajax() || $request->wantsJson()) {
@@ -35,5 +38,33 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('login');
+    }
+
+    // untuk yang belum punya akun
+    public function register()
+    {
+        return view('auth.register');
+    }
+    public function postRegister(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $request->validate([
+                'username' => 'required|string|min:3|unique:m_user,username',
+                'name' => 'required|string|max:100',
+                'password' => 'required|min:5',
+            ]);
+            UserModel::create([
+                'username' => $request->username,
+                'name' => $request->name,
+                'password' => bcrypt($request->password),
+                'level_id' => 3
+            ]);
+            return response()->json([
+                'status' => true,
+                'message' => 'Register Berhasil',
+                'redirect' => url('/login')
+            ]);
+        }
+        return redirect('register');
     }
 }
