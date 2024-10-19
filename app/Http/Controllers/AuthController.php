@@ -50,12 +50,12 @@ class AuthController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $request->validate([
                 'username' => 'required|string|min:3|unique:m_user,username',
-                'name' => 'required|string|max:100',
+                'nama' => 'required|string|max:100',
                 'password' => 'required|min:5',
             ]);
             UserModel::create([
                 'username' => $request->username,
-                'name' => $request->name,
+                'nama' => $request->name,
                 'password' => bcrypt($request->password),
                 'level_id' => 3
             ]);
