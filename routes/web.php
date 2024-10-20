@@ -36,7 +36,11 @@ use App\Http\Controllers\WelcomeController;
                 Route::put('/{id}/update_ajax', [UserController::class, 'update_ajax']); // menyimpan perubahan data user
                 Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']); //Untuk tampilan form confirm delete user ajax
                 Route::delete('/{id}/delete_ajax', [UserController::class, 'delete_ajax']); // menghapus dat auser ajax
-                Route::delete('/{id}', [UserController::class, 'destroy']);  
+                Route::delete('/{id}', [UserController::class, 'destroy']); 
+                Route::get('/import', [UserController::class, 'import']);      // ajax form upload excel
+                Route::post('/import_ajax', [UserController::class, 'import_ajax']);      // ajax import excel
+                Route::get('/export_excel',[UserController::class, 'export_excel']);      
+                Route::get('/export_pdf',[UserController::class,'export_pdf']); // export pdf 
                 });
 
                 Route::group(['prefix' => 'level', 'middleware'=> 'authorize:ADM,MNG'], function(){
@@ -48,6 +52,10 @@ use App\Http\Controllers\WelcomeController;
                     Route::put('/{id}/update_ajax', [LevelController::class, 'update_ajax']);       //menyimpan perubahan data level AJAX
                     Route::get('/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']);      //menampilkan form confirm hapus data level AJAX
                     Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']);    //menghapus data level AJAX
+                    Route::get('/import', [LevelController::class, 'import']);      // ajax form upload excel
+                    Route::post('/import_ajax', [LevelController::class, 'import_ajax']);      // ajax import excel
+                    Route::get('/export_excel',[LevelController::class, 'export_excel']);      
+                    Route::get('/export_pdf',[LevelController::class,'export_pdf']); // export pdf
                 });
 
                 Route::group(['prefix' => 'kategori', 'middleware'=> 'authorize:ADM,MNG'], function(){
@@ -59,6 +67,10 @@ use App\Http\Controllers\WelcomeController;
                     Route::put('/{id}/update_ajax', [KategoriController::class, 'update_ajax']);        //menyimpan perubahan data kategori AJAX
                     Route::get('/{id}/delete_ajax', [KategoriController::class, 'confirm_ajax']);       //menampilkan form confirm hapus data kategori AJAX
                     Route::delete('/{id}/delete_ajax', [KategoriController::class, 'delete_ajax']);     //menghapus data kategori AJAX
+                    Route::get('/import', [KategoriController::class, 'import']);      // ajax form upload excel
+                    Route::post('/import_ajax', [KategoriController::class, 'import_ajax']);      // ajax import excel
+                    Route::get('/export_excel',[KategoriController::class, 'export_excel']);      
+                    Route::get('/export_pdf',[KategoriController::class,'export_pdf']); // export pdf
                 });
 
                 Route::group(['prefix' => 'supplier', 'middleware'=> 'authorize:ADM'], function(){
@@ -70,6 +82,10 @@ use App\Http\Controllers\WelcomeController;
                     Route::put('/{id}/update_ajax', [SupplierController::class, 'update_ajax']);        //menyimpan perubahan data supplier AJAX
                     Route::get('/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']);       //menampilkan form confirm hapus data supplier AJAX
                     Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']);     //menghapus data supplier AJAX
+                    Route::get('/import', [SupplierController::class, 'import']);      // ajax form upload excel
+                    Route::post('/import_ajax', [SupplierController::class, 'import_ajax']);      // ajax import excel
+                    Route::get('/export_excel',[SupplierController::class, 'export_excel']);      
+                    Route::get('/export_pdf',[SupplierController::class,'export_pdf']); // export pdf
                 });
 
                 Route::group(['prefix' => 'barang', 'middleware'=> 'authorize:ADM,MNG'], function(){
