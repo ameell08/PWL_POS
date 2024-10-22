@@ -148,6 +148,14 @@ class KategoriController extends Controller
         }
     }
 
+    //uts
+    public function show_ajax(String $id){
+        $kategori = KategoriModel::select('kategori_id', 'kategori_nama')->get();
+        $kategori= KategoriModel::find($id);
+
+        return view('kategori.show_ajax', ['kategori'=>$kategori]);
+    }
+    
     //Pertemuan 6
     public function create_ajax(){
         $kategori = KategoriModel::select('kategori_id', 'kategori_nama')->get();

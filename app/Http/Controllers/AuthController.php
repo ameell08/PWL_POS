@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserModel;
+use App\Models\LevelModel;
 
 class AuthController extends Controller
 {
@@ -43,8 +44,10 @@ class AuthController extends Controller
     // untuk yang belum punya akun
     public function register()
     {
-        return view('auth.register');
+        $levels = LevelModel::all(); // Mengambil semua level dari database
+        return view('auth.register', compact('levels')); // Pass data level ke view
     }
+    
     public function postRegister(Request $request)
     {
         if ($request->ajax() || $request->wantsJson()) {
@@ -54,12 +57,15 @@ class AuthController extends Controller
                 'password' => 'required|min:5',
                 'level_id'=>'required|integer',
             ]);
-            UserModel::create([
+            // Buat user baru
+            $user = UserModel::create([
                 'username' => $request->username,
                 'nama' => $request->name,
                 'password' => bcrypt($request->password),
                 'level_id' => $request->level_id
             ]);
+            auth::login($user);
+             // Respon sukses dengan redirect ke halaman yang diinginkan
             return response()->json([
                 'status' => true,
                 'message' => 'Register Berhasil',

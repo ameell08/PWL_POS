@@ -1,4 +1,4 @@
-@empty($kategori)
+@empty($transaksi)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,18 +11,18 @@
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/kategori') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/transaksi') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
 @else
-    <form action="{{ url('/kategori/' . $kategori->kategori_id . '/delete_ajax') }}" method="POST" id="form-delete">
+    <form action="{{ url('/transaksi/' . $transaksi->penjualan_id . '/delete_ajax') }}" method="POST" id="form-delete">
         @csrf
         @method('DELETE')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Lavel</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Transaksi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -31,23 +31,56 @@
                         <h5><i class="icon fas fa-ban"></i> Konfirmasi !!!</h5>
                         Apakah Anda ingin menghapus data seperti di bawah ini?
                     </div>
-                    <table class="table table-sm table-bordered table-striped">
+                    <table class="table table-bordered table-striped table-hover table-sm">
                         <tr>
-                            <th class="text-right col-3">kategori Kode :</th>
-                            <td class="col-9">{{ $kategori->kategori_kode }}</td>
+                            <th>ID</th>
+                            <td>{{ $transaksi->penjualan_id }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">kategori Nama :</th>
-                            <td class="col-9">{{ $kategori->kategori_nama }}</td>
+                            <th>User</th>
+                            <td>{{ $transaksi->user->nama }}</td>
+                        </tr>
+                        <tr>
+                            <th>Penjualan kode</th>
+                            <td>{{ $transaksi->penjualan_kode }}</td>
+                        </tr>
+                        <tr>
+                            <th>Penjualan tanggal</th>
+                            <td>{{ $transaksi->penjualan_tanggal->format('Y-m-d') }}</td>
                         </tr>
                     </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                    <button type="submit" class="btn btn-primary">Ya, Hapus</button>
+
+                    <div class="card m-1" style="position: relative; left: 0px; top: 0px;">
+                        <div class="card-header ui-sortable-handle" style="cursor: move;">
+                            <h3 class="card-title">
+                                <i class="ion ion-clipboard mr-1"></i>
+                                Detail Transaksi
+                            </h3>
+                        </div>
+
+                        <div class="card-body">
+                            <ul class="todo-list ui-sortable" data-widget="todo-list">
+                                @foreach ($transaksi->transaksiDetail as $detail)
+                                    <li id="detail-{{ $detail->detail_id }}">
+                                        <span class="text">{{ $detail->barang->barang_nama }}</span>
+
+                                        <small class="badge badge-secondary">
+                                            Jumlah {{ $detail->jumlah }}
+                                        </small>
+                                        <small class="badge badge-success">
+                                            Harga {{ number_format($detail->harga) }}
+                                        </small>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
+                        <button type="submit" class="btn btn-primary">Ya, Hapus</button>
+                    </div>
                 </div>
             </div>
-        </div>
     </form>
     <script>
         $(document).ready(function() {
@@ -66,7 +99,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataKategori.ajax.reload();
+                                dataTransaksi.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {

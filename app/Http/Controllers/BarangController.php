@@ -32,15 +32,15 @@ class BarangController extends Controller
     // Ambil data barang dalam bentuk json untuk datatables
     public function list(Request $request)
     {
-        $barangs = BarangModel::select('barang_id', 'barang_kode', 'barang_nama', 'kategori_id', 'harga_beli', 'harga_jual')
+        $barang = BarangModel::select('barang_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual', 'kategori_id')
             ->with('kategori');
         
         //Filter data barang berdasarkan kategori_id
-        if ($request->kategori_id) {
-            $barangs->where('kategori_id', $request->kategori_id);
+        if ($request->filter_kategori) {
+            $barang->where('kategori_id', $request->filter_kategori);
         }
 
-        return DataTables::of($barangs)
+        return DataTables::of($barang)
         // menambahkan kolom index / no urut (default barang_nama kolom: DT_RowIndex)
         ->addIndexColumn()
         ->addColumn('aksi', function ($barang) { // menambahkan kolom aksi

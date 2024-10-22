@@ -150,6 +150,23 @@ class SupplierController extends Controller
         }
     }
 
+    //uts
+    public function show_ajax(string $id) {
+        // Cari barang berdasarkan id
+        $supplier = SupplierModel::find($id);
+    
+        // Periksa apakah barang ditemukan
+        if ($supplier) {
+            // Tampilkan halaman show_ajax dengan data barang
+            return view('supplier.show_ajax', ['supplier' => $supplier]);
+        } else {
+            // Tampilkan pesan kesalahan jika barang tidak ditemukan
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
+    }
     //pertemuan 6
     public function create_ajax()
     {

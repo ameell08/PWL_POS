@@ -148,6 +148,24 @@ class LevelController extends Controller
         }
     }
 
+    //uts
+    public function show_ajax(string $id) {
+        // Cari barang berdasarkan id
+        $level = LevelModel::find($id);
+    
+        // Periksa apakah barang ditemukan
+        if ($level) {
+            // Tampilkan halaman show_ajax dengan data barang
+            return view('level.show_ajax', ['level' => $level]);
+        } else {
+            // Tampilkan pesan kesalahan jika barang tidak ditemukan
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
+    }
+
     //pertemuan 6
     public function create_ajax(){
         $level = LevelModel::select('level_id', 'level_nama')->get();

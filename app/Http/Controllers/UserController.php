@@ -155,6 +155,15 @@ class UserController extends Controller
         }
     }
 
+    // uts
+
+    public function show_ajax(String $id){
+        $user = UserModel::find($id);
+        $level = LevelModel::all();
+
+        return view('user.show_ajax', ['user' => $user, 'level' => $level]);
+    }
+    
     // pertemuan 6
     public function create_ajax()
     {
