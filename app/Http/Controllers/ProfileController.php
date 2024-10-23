@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
@@ -30,7 +31,11 @@ class ProfileController extends Controller
     {
         if ($request->ajax()) {
             $user = Auth::user();
-            return view('profile.edit_ajax', ['user' => $user])->render();
+            $levels = ['admin' => 'Admin', 'user' => 'User']; // Adjust based on your needs
+            return view('profile.edit_ajax', [
+                'user' => $user,
+                'levels' => $levels
+            ])->render();
         }
         return response()->json([
             'status' => false,
@@ -54,7 +59,9 @@ class ProfileController extends Controller
                 $rules = [
                     'username' => 'required|string|min:3|max:20|unique:m_user,username,' . $user->user_id . ',user_id',
                     'nama' => 'required|string|max:100',
-                    'password' => 'nullable|min:5|max:20'
+                    'level' => 'required|in:admin,user',
+                    'password' => 'nullable|min:6|max:20',
+                    'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
                 ];
 
                 $validator = Validator::make($request->all(), $rules);
@@ -70,10 +77,24 @@ class ProfileController extends Controller
                 // Update basic info
                 $user->username = $request->username;
                 $user->nama = $request->nama;
+                $user->level = $request->level;
 
                 // Update password if provided
                 if ($request->filled('password')) {
                     $user->password = Hash::make($request->password);
+                }
+
+                // Handle photo upload
+                if ($request->hasFile('photo')) {
+                    // Delete old photo if exists
+                    if ($user->photo && Storage::exists('public/profile_photos/' . $user->photo)) {
+                        Storage::delete('public/profile_photos/' . $user->photo);
+                    }
+
+                    $photo = $request->file('photo');
+                    $photoName = time() . '_' . $user->username . '.' . $photo->getClientOriginalExtension();
+                    $photo->storeAs('public/profile_photos', $photoName);
+                    $user->photo = $photoName;
                 }
 
                 if (!$user->save()) {

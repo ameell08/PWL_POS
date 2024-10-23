@@ -16,15 +16,10 @@
             <div class="image">
                 <i class="fas fa-user-circle fa-2x text-light"></i>
             </div>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle text-light" data-toggle="dropdown">
+            <div class="info">
+                <a href="{{ url('/profile') }}" class="nav-link text-light">
                     {{ auth()->user()->username }}
                 </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a href="{{ url('/profile') }}" class="dropdown-item">
-                        <i class="fas fa-user-edit mr-2"></i> Edit Profil
-                    </a> 
-                </div>
             </div>
         </div>
     </div>

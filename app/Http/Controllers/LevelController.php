@@ -172,6 +172,7 @@ class LevelController extends Controller
         return view('level.create_ajax')->with('level', $level);
     }
 
+    // memnyimpan data secara ajax
     public function store_ajax(Request $request){
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
@@ -200,6 +201,7 @@ class LevelController extends Controller
         $level = LevelModel::find($id);
         return view('level.edit_ajax', ['level' => $level]);
     }
+
     public function update_ajax(Request $request, $id){
         // cek apakah request dari ajax 
         if ($request->ajax() || $request->wantsJson()) {

@@ -144,11 +144,11 @@ use App\Http\Controllers\WelcomeController;
                     Route::get('/{id}/show_ajax', [StokController::class, 'show_ajax']); //show_ajax
                 });
 
-                Route::group(['prefix' => 'profile', 'middleware'=> 'authorize:ADM,MNG'], function(){
-                    Route::get('/', [ProfileController::class, 'index']);                                //menampilkan laman awal barang
-                    Route::get('/edit_ajax', [ProfileController::class, 'edit_ajax']);              //menampilkan laman form edit barang AJAX
-                    Route::put('/update_ajax', [ProfileController::class, 'update_ajax']);          //menyimpan perubahan data barang AJAX
-                    Route::get('/show_ajax', [ProfileController::class, 'show_ajax']); //show_ajax
+                Route::prefix('profile')->group(function () {
+                    Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+                    Route::get('/edit', [ProfileController::class, 'edit_ajax'])->name('profile.edit');
+                    Route::post('/update', [ProfileController::class, 'update_ajax'])->name('profile.update');
+                    Route::get('/show', [ProfileController::class, 'show_ajax'])->name('profile.show');
                 });
             });
 
