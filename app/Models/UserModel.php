@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Sabberworm\CSS\Property\AtRule;
 
 class UserModel extends Authenticable implements JWTSubject
 {
@@ -29,7 +31,14 @@ class UserModel extends Authenticable implements JWTSubject
      * 
      * @var array
      */
-    protected $fillable = ['username', 'password', 'nama',  'level_id', 'created_at', 'updated_at'];
+    protected $fillable = [
+        'username', 
+        'password', 
+        'nama',  
+        'level_id',
+        'created_at',
+        'updated_at',
+        'image'/**Tambahan*/];
 
     protected $hidden = ['password'];
 
@@ -53,5 +62,13 @@ class UserModel extends Authenticable implements JWTSubject
     // Mendapatkan kode role
     public function getRole(){
         return $this->level->level_kode;
+    }
+
+    // image
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($image)=> url('/storage/posts/' . $image),
+        );
     }
 }
