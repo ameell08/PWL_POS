@@ -3,8 +3,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Kesalahan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                {{-- <button type="button" class="close" data-dismiss="modal" aria label="Close"><span
+                        aria-hidden="true">&times;</span></button> --}}
+                        <button type="button" class="close" data-dismiss="modal" aria label="Close"><span
+                            aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="alert alert-danger">
@@ -20,8 +22,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Detail data Transaksi</h5>
-                <button type="button" class="close" data-dismiss="modal" aria label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                {{-- <button type="button" class="close" data-dismiss="modal" aria label="Close"><span
+                        aria-hidden="true">&times;</span></button> --}}
+                        <button type="button" class="close" data-dismiss="modal" aria label="Close"><span
+                            aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <table class="table table-bordered table-striped table-hover table-sm">
@@ -56,6 +60,7 @@
                             @foreach ($transaksi->transaksiDetail as $detail)
                                 <li id="detail-{{ $detail->detail_id }}">
                                     <span class="text">{{ $detail->barang->barang_nama }}</span>
+                                    <img src="{{ $detail->barang->image }}">
 
                                     <small class="badge badge-secondary">
                                         Jumlah {{ $detail->jumlah }}
